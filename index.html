@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuwan Bandara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.5);
+            --bg: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* --- Social Media Sidebar --- */
+        .social-sidebar {
+            position: fixed;
+            left: 30px;
+            bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 2000;
+        }
+        .social-sidebar a {
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+        .social-sidebar a:hover {
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+        .social-sidebar::after {
+            content: "";
+            width: 2px;
+            height: 100px;
+            background: var(--glass-border);
+            margin: 0 auto;
+        }
+
+        /* --- Navbar --- */
+        #navbar {
+            position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between;
+            align-items: center; padding: 1.5rem 10%; z-index: 1000;
+            backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; list-style: none; align-items: center; }
+        .nav-links li { margin-left: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- Hero Section & Profile Pic --- */
+        .hero { 
+            height: 100vh; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 15%; 
+        }
+        .hero-content { max-width: 600px; }
+        .profile-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+        }
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: url('https://via.placeholder.com/400') center/cover; /* REPLACE WITH YOUR IMAGE URL */
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary-glow);
+            animation: morph 8s ease-in-out infinite;
+        }
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 50% 50% 20% 80% / 25% 80% 20% 75%; }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        }
+
+        .badge { background: rgba(99, 102, 241, 0.1); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--primary); }
+        h1 { font-size: 3.5rem; margin: 1.5rem 0; font-weight: 800; }
+        .typewriter { color: var(--primary); border-right: 3px solid var(--primary); }
+
+        /* --- Skills Section --- */
+        section { padding: 100px 10%; }
+        .section-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .skill-item { margin-bottom: 20px; }
+        .progress { background: var(--card-bg); height: 8px; border-radius: 10px; margin-top: 10px; overflow: hidden; }
+        .bar { background: var(--primary); height: 100%; border-radius: 10px; box-shadow: 0 0 10px var(--primary-glow); }
+
+        /* --- Projects --- */
+        .project-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: 0.4s ease;
+        }
+        .glass-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.06); }
+        .btn-main { background: var(--primary); color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; display: inline-block; transition: 0.3s; }
+        .btn-main:hover { transform: scale(1.05); box-shadow: 0 5px 20px var(--primary-glow); }
+
+        /* --- Reveal Animation --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 968px) {
+            .hero { flex-direction: column-reverse; text-align: center; height: auto; padding-top: 150px; }
+            .profile-container { width: 250px; height: 250px; margin-bottom: 40px; }
+            .social-sidebar { display: none; }
+        }
+
+         .btn{
+            text-decoration: none;
+            margin-left: 20px ;
+            padding:12px 30px;
+            background: none;
+            border: 1px solid #6366f1;
+            color: #6366f1;
+            border-radius: 8px;
+         }
+        .btn:hover{
+            color: white;
+            border:none;
+            background-color: #6366f1;
+        }
+
+
+        :root {
+  --accent-color: #00f2ff; /* Cyan Glow */
+  --bg-color: #0a0a0c;
+  --card-bg: rgba(255, 255, 255, 0.05);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: #eee;
+  font-family: 'Inter', sans-serif;
+}
+
+.smart-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+/* The Glowing Vertical Line */
+.smart-timeline::before {
+  content: '';
+  position: absolute;
+  left: 31px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--accent-color), transparent);
+  box-shadow: 0 0 15px var(--accent-color);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+  padding-left: 60px;
+}
+
+/* The Smart Year Label */
+.timeline-item::after {
+  content: attr(data-year);
+  position: absolute;
+  left: -40px;
+  top: 5px;
+  font-weight: bold;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* The Glowing Dot */
+.timeline-dot {
+  position: absolute;
+  left: 25px;
+  top: 10px;
+  width: 14px;
+  height: 14px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+  z-index: 2;
+}
+
+/* Glassmorphism Card */
+.timeline-content {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.timeline-content:hover {
+  transform: translateX(10px);
+  border: 1px solid var(--accent-color);
+}
+
+.timeline-content h3 {
+  margin-top: 0;
+  color: var(--accent-color);
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="social-sidebar">
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/nuwan-bandara-266224324 "><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <nav id="navbar">
+        <div class="logo">Nuwan Bandara<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Work</a></li>
+            <li><a href="#contact" style="color: var(--primary); font-weight: 800;">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <span class="badge">Available for Projects</span>
+            <h1>Hi, I'm <span class="typewriter" data-words='["Network Administrator", "GUI Developer", "Content Creator"]'></span></h1>
+            <p style="color: var(--text-dim); font-size: 1.1rem; margin-bottom: 2rem;">Specializing in building digital products and Real world Network Solutions </p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn-main">My Projects</a>
+                 <a href="#filePath" class="btn"   download="custom-filename.pdf">Download MY CV</a>
+            </div>
+        </div>
+        <div class="profile-container">
+            <div class="profile-img" style="background-image: url('my_image.png');">    </div>
+        </div>
+    </header>
+
+
+    <section id="skills" class="reveal">
+        <h2 class="section-title">Education</h2>
+        <div class="skills-grid">
+            
+            <div class="glass-card">
+                
+<div class="smart-timeline">
+  <div class="timeline-item" data-year="2022">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <h3>Advanced Level Examination From Engineering Technology Stream</h3>
+      <p>Science for Technology - A </p>
+      <p>Information and Communication Technology - A</p>
+      <p>Engineering Technology - C </p>
+      <p>Z-score-1.9391</p>
+      <p>Distric Rank - 19(kegall Distric)</p>
+    </div>
+  </div>
+
+  <div class="timeline-item" data-year="2024">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <h3>Bachelor of Information and Communication Technology (Honours) </h3>
+      <p>Specializing path Network Technology at Department of Software Engineering Faculty of Computing and technology University Of Kelaniya</p>
+    </div>
+  </div>
+
+  <div class="timeline-item" data-year="2026">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <h3>Certificate of Advanced Networking </h3>
+      <p>Conducted by the information and Communication Technology Center University of kelaniya</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="reveal">
+         <h2 class="section-title">Experience</h2>
+        <div class="project-container">
+            <div class="glass-card reveal">
+                <h3>Director of Public Relations Unit</h3>
+                <p style="color: var(--text-dim); margin: 10px 0;">ZeroPlastic Movement of University of Kelaniya</p>
+                <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;display: none;">Explore Project →</a>
+            </div>
+            <div class="glass-card reveal">
+                <h3>Editorial Team Member</h3>
+                <p style="color: var(--text-dim); margin: 10px 0;">Green club of FCT</p>
+                <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;display: none;">Explore Project →</a>
+            </div>
+             <div class="glass-card reveal">
+                <h3>Bublic Relations coordinator</h3>
+                <p style="color: var(--text-dim); margin: 10px 0;">Rotaract Club of University of kelaniya</p>
+                <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;display: none;">Explore Project →</a>
+            </div>
+            <div class="glass-card reveal">
+                <h3>Member </h3>
+                <p style="color: var(--text-dim); margin: 10px 0;">Information Technology Student's Association University of Kelaniya</p>
+                <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;display: none;">Explore Project →</a>
+            </div>
+             <div class="glass-card reveal">
+                <h3>O/L mathematics Tutor </h3>
+                <p style="color: var(--text-dim); margin: 10px 0;">Self-Employed</p>
+                <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;display: none;">Explore Project →</a>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+    
+
+    <section id="skills" class="reveal">
+        <h2 class="section-title">Progamming and Designing Mastery</h2>
+        <div class="skills-grid">
+            <div class="glass-card">
+                <div class="skill-item"><span>C</span><div class="progress"><div class="bar" style="width: 70%;"></div></div></div>
+                 <div class="skill-item"><span>java</span><div class="progress"><div class="bar" style="width: 5%;"></div></div></div>
+                <div class="skill-item"><span>Python</span><div class="progress"><div class="bar" style="width: 60%;"></div></div></div>
+                <div class="skill-item"><span>SQL/PHP(Database Management System)</span><div class="progress"><div class="bar" style="width: 60%;"></div></div></div>
+            </div>
+            <div class="glass-card">
+                <div class="skill-item"><span>HTML/CSS/Java-script</span><div class="progress"><div class="bar" style="width: 80%;"></div></div></div>
+                <div class="skill-item"><span>Canva UI/UX Design</span><div class="progress"><div class="bar" style="width: 85%;"></div></div></div>
+                <div class="skill-item"><span>Capcut Video Editorial</span><div class="progress"><div class="bar" style="width: 85%;"></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="project-container">
+            <div class="glass-card reveal">
+                <h3>Catvision Digital Solutions</h3>
+                <p style="color: var(--text-dim); margin: 10px 0;">Empower Brands with Financial Software Solutions.Explore now completely developed python Graphic User Interfaces</p>
+                <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Explore Project →</a>
+            </div>
+            <div class="glass-card reveal" style="display: none;">
+                <h3>Fintech Mobile App</h3>
+                <p style="color: var(--text-dim); margin: 10px 0;">Secure payment gateway with biometric authentication.</p>
+                <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600;">Explore Project →</a>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+<div class="container">
+    <header>
+        <div class="logo">Catvision</div>
+        <nav>
+            <span style="color: var(--accent)">●</span> System Status: Nominal
+        </nav>
+    </header>
+
+    <div class="grid">
+        <div class="glass-card">
+            <span class="badge">VERIFIED Software</span>
+            <h3>CyberMonitor</h3>
+            <p>A real-time network speed dashboard with live graphing</p><br>
+            <p>Supportable Operating System : Windows 10 or Upper version.</p>
+            <p>RAM : 2GB minimum.</p>
+            <p>Processor : core2Duo or Upper.</p>
+            <span class="price">FREE </span>
+            <a href="/checkout/1" class="buy-btn">Download</a>
+        </div>
+
+        <div class="glass-card">
+            <span class="badge">VERIFIED Software</span>
+            <h3>Smart PDF Annotator</h3>
+            <p>A viewer with freehand drawing and editing capabilities.</p>
+            <p>Supportable Operating System : Windows 10 or Upper version.</p>
+            <p>RAM : 2GB minimum.</p>
+            <p>Processor : core2Duo or Upper.</p>
+            <span class="price">FREE</span>
+            <a href="/dl/ghost-os" class="buy-btn" style="background: #fff;">DOWNLOAD</a>
+        </div>
+
+        <div class="glass-card">
+            <span class="badge">PREMIUM</span>
+            <h3>Music Player</h3>
+            <p>Including a feature-rich Music Player</p>
+            <p>Supportable Operating System : Windows 10 or Upper version.</p>
+            <p>RAM : 2GB minimum.</p>
+            <p>Processor : core2Duo or Upper.</p>
+            <span class="price">FREE</span>
+            <a href="/checkout/3" class="buy-btn">PURCHASE</a>
+        </div>
+
+        <div class="glass-card">
+            <span class="badge">VERIFIED Software</span>
+            <h3>Password Manager</h3>
+            <p>Easily Generate Strong passwords and Save in Your Devices. Your Passwords are Encrypted througth our application.it has Easily Manage your passwords</p>
+            <p>Supportable Operating System : Windows 10 or Upper version.</p>
+            <p>RAM : 2GB minimum.</p>
+            <p>Processor : core2Duo or Upper.</p>
+            <span class="price">FREE</span>
+            <a href="/dl/ghost-os" class="buy-btn" style="background: #fff;">DOWNLOAD</a>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <p>Catvision Digital Solutions | Nuwan Bandara</p>
+    </footer>
+</div>
+
+
+
+
+
+
+
+    <script>
+        // Typewriter Effect
+        const typeElement = document.querySelector('.typewriter');
+        const words = JSON.parse(typeElement.getAttribute('data-words'));
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            typeElement.textContent = isDeleting ? currentWord.substring(0, charIndex--) : currentWord.substring(0, charIndex++);
+            if (!isDeleting && charIndex === currentWord.length + 1) { isDeleting = true; setTimeout(type, 1500); }
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; setTimeout(type, 500); }
+            else { setTimeout(type, isDeleting ? 50 : 150); }
+        }
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        document.addEventListener('DOMContentLoaded', type);
+    </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+
+        :root {
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #6366f1; /* Cyber Green */
+            --text: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% -20%, #1a1a1a, #050505);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* The "Smart" Glass Effect */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .logo { font-weight: 800; letter-spacing: 2px; color: var(--accent); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .price { font-size: 1.5rem; font-weight: bold; margin: 15px 0; display: block; }
+
+        .buy-btn {
+            display: block;
+            text-align: center;
+            background: var(--accent);
+            color: #000;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .buy-btn:hover { opacity: 0.8; }
+
+        /* Security Badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--accent);
+            font-size: 0.7rem;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        footer { margin-top: 80px; opacity: 0.5; font-size: 0.8rem; text-align: center; }
+
+
+
+
+
+        /* --- Global Responsive Base --- */
+html {
+    overflow-x: hidden; /* Prevents side-scrolling */
+}
+
+/* --- Responsive Layout Adjustments --- */
+
+@media (max-width: 1024px) {
+    .hero { padding: 0 5%; }
+}
+
+@media (max-width: 768px) {
+    /* Navbar */
+    #navbar {
+        padding: 1rem 5%;
+    }
+    .nav-links li {
+        margin-left: 1rem;
+    }
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+
+    /* Hero Section */
+    .hero {
+        flex-direction: column-reverse;
+        text-align: center;
+        height: auto;
+        padding: 120px 20px 50px 20px;
+    }
+    .hero-content {
+        max-width: 100%;
+    }
+    h1 {
+        font-size: 2.2rem;
+    }
+    .hero-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    .btn {
+        margin-left: 0; /* Reset margin for vertical stacking */
+        width: 100%;
+        max-width: 280px;
+    }
+    .btn-main {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    /* Profile Image */
+    .profile-container {
+        width: 220px;
+        height: 220px;
+        margin-bottom: 30px;
+    }
+
+    /* Hide Sidebar on Mobile */
+    .social-sidebar {
+        display: none;
+    }
+
+    /* Sections */
+    section {
+        padding: 60px 5%;
+    }
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    /* Timeline Adjustments */
+    .smart-timeline::before {
+        left: 15px;
+    }
+    .timeline-item {
+        padding-left: 40px;
+    }
+    .timeline-dot {
+        left: 9px;
+    }
+    .timeline-item::after {
+        position: relative;
+        left: 0;
+        top: -5px;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    /* Grids to Single Column */
+    .skills-grid, .project-container, .grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+    }
+
+    /* Software Cards (Catvision) */
+    .glass-card {
+        padding: 1.2rem;
+    }
+}
+
+/* Fix for extra small devices */
+@media (max-width: 480px) {
+    h1 { font-size: 1.8rem; }
+    .logo { font-size: 1.2rem; }
+    .nav-links { display: none; } /* Consider a hamburger menu for very small screens */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+        
